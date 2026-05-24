@@ -60,6 +60,7 @@ def load_personality(path: str | Path) -> Optional[PersonalityChip]:
         )
 
     chip = build_personality(spec)
+    chip.source_path = str(path)
 
     # AUTO-REGISTER INTO REGISTRY (fix missing lifecycle wiring)
     try:
