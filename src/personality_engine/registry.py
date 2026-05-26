@@ -34,21 +34,9 @@ class PersonalityRegistry:
         self._default: Optional[str] = None
         self._load_state()
 
-        # AUTO-SYNC FROM LOADER (Spark compatibility fix)
-        try:
-            from .loader import load_all_personalities
-            chips = load_all_personalities()
-            for chip in chips:
-                if chip.id not in self._installed:
-                    self._installed[chip.id] = chip
-            self._save_state()
-        except Exception:
-            pass
-
 
     def install(self, chip: PersonalityChip) -> None:
         self._installed[chip.id] = chip
-        self._save_state()
         self._save_state()
 
     def uninstall(self, personality_id: str) -> None:
