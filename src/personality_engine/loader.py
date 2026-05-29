@@ -62,14 +62,16 @@ def load_personality(path: str | Path) -> Optional[PersonalityChip]:
     chip = build_personality(spec)
     chip.source_path = str(path)
 
+    chip.source_path = str(path)
+
     # AUTO-REGISTER INTO REGISTRY (fix missing lifecycle wiring)
     try:
         from .registry import PersonalityRegistry
-        # removed: avoid circular dependency
-        _registry.install(chip)
+        registry = PersonalityRegistry()
+        registry.install(chip)
     except Exception:
         pass
-    chip.source_path = str(path)
+
     return chip
 
 
